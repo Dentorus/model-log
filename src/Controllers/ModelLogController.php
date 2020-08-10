@@ -18,8 +18,8 @@ class ModelLogController extends Controller
         $relationHeaders = [];
         $relationTables = config('model-log.related_user_columns', []);
 
-        foreach ($relationTables as $header => $relationTable) {
-            $relationHeaders[$header] = $relationTable['name'];
+        foreach ($relationTables as $filter => $column) {
+            $relationHeaders[$filter] = __('modellog::modellog.' . $filter);
         }
 
         $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
@@ -27,9 +27,15 @@ class ModelLogController extends Controller
         $sortOrder = $request->get('sort_order', null);
         $query = ModelLog::query();
 
-        if (in_array($search->key, $relationHeaders)) {
-            $query->whereHas('user', function ($q) use ($relationTables, $search) {
-                return $q->where($relationTables[$search->key]['column'], $search->value);
+        if (array_key_exists($search->key, $relationHeaders)) {
+            $query->whereHas('user', function ($query) use ($relationTables, $search) {
+                if($search->filter == 'contains'){
+                    $query->where($relationTables[$search->key], 'like', '%' . $search->value . '%');
+                } elseif($search->filter == 'equal') {
+                    $query->where($relationTables[$search->key], '=', $search->value);
+                }
+
+                return $query;
             });
         } elseif($search->filter == 'contains'){
             $query->where($search->key, 'like', '%' . $search->value . '%');
