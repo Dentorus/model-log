@@ -15,6 +15,7 @@ return [
     'before' => 'Oldin',
     'after' => 'Keyin',
     'created_at' => 'Hodisa vaqti',
+    'user_email' => 'Foydalanuvchi elektron pochtasi',
     'contains' => 'o\'z ichiga oladi',
     'user_ip' => 'Ip adress',
     'user_agent' => 'Qurilma',

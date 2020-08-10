@@ -15,6 +15,7 @@ return [
     'before' => 'Before',
     'after' => 'After',
     'created_at' => 'Event date',
+    'user_email' => 'User email',
     'contains' => 'contains',
     'user_ip' => 'Ip address',
     'user_agent' => 'Device',

@@ -15,6 +15,7 @@ return [
     'before' => 'До',
     'after' => 'После',
     'created_at' => 'Дата события',
+    'user_email' => 'Email пользователя',
     'contains' => 'содержит',
     'user_ip' => 'IP адрес',
     'user_agent' => 'Устройство',
